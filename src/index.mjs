@@ -24,6 +24,7 @@ app.use(session({
     secret:"tungtung",
     saveUninitialized:false,
     resave:false,
+    rolling:true,
     cookie:{
         maxAge: 60000*30
     },
@@ -45,13 +46,12 @@ app.get("/",(request, response)=>{
     response.status(200).send({msg:"hi"});
 })
 app.post("/api/auth/", passport.authenticate('local'), (request, response)=>{
+
+   
     const safeUser = {
         _id: request.user._id,
         email: request.user.email,
         username: request.user.username,
-        tasks: request.user.tasks,
-        isAuthenticated:true,
-
     };
     response.status(200).send({user:safeUser,redirectUrl:"/"})
 

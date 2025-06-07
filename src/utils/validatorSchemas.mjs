@@ -97,6 +97,9 @@ export const validateTask = {
   status:{
     in: ['body'],
     exists: { errorMessage: 'Status cannot be empty' },
+  },
+  idx:{
+    optional:true
   }
 };
 
