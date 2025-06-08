@@ -16,6 +16,7 @@ route.get("/api/task", async(req, res)=>{
 })
 route.post("/api/task", checkSchema(validateTask), async (request, response) => {
   const result = validationResult(request);
+
   if (result.isEmpty()) {
     const data = matchedData(request);
     const newTask = new taskModel(data);

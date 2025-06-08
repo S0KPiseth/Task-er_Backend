@@ -50,28 +50,30 @@ app.post("/api/auth/", passport.authenticate('local'), (request, response)=>{
    
     const safeUser = {
         _id: request.user._id,
+        fname:request.user.fname,
+        lname:request.user.lname,
         email: request.user.email,
         username: request.user.username,
     };
     response.status(200).send({user:safeUser,redirectUrl:"/"})
 
 })
-app.get("/api/auth/status", (request, response)=>{
-    if(request.user){
-        const safeUser = {
-            _id: request.user._id,
-            email: request.user.email,
-            name: request.user.name,
-            tasks: request.user.tasks,
-        };
-        return response.status(200).send({user:safeUser});
+// app.get("/api/auth/status", (request, response)=>{
+//     if(request.user){
+//         const safeUser = {
+//             _id: request.user._id,
+//             email: request.user.email,
+//             name: request.user.name,
+//             tasks: request.user.tasks,
+//         };
+//         return response.status(200).send({user:safeUser});
 
-    }
-    if(!request.session.tasks){
-        request.session.tasks = []
-    }
-    return response.status(200).send({isAuthenticated:false,tasks:request.session.tasks})
-})
+//     }
+//     if(!request.session.tasks){
+//         request.session.tasks = []
+//     }
+//     return response.status(200).send({isAuthenticated:false,tasks:request.session.tasks})
+// })
 app.post("/api/auth/register", checkSchema(userValidatorSchema), async (request, response)=>{
     const result = validationResult(request);
     if(result.isEmpty()){

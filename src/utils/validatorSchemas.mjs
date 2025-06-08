@@ -1,5 +1,32 @@
 
 export const userValidatorSchema ={
+  fname: {
+    notEmpty: {
+      errorMessage: "First name cannot be empty",
+    },
+    isLength: {
+      options: { min: 2, max: 30 },
+      errorMessage: "First name should be between 2 to 30 characters",
+    },
+    matches: {
+      options: [/^[A-Za-z]+$/],
+      errorMessage: "First name can only contain alphabetic characters",
+    },
+  },
+
+lname: {
+    notEmpty: {
+      errorMessage: "Last name cannot be empty",
+    },
+    isLength: {
+      options: { min: 2, max: 30 },
+      errorMessage: "Last name should be between 2 to 30 characters",
+    },
+    matches: {
+      options: [/^[A-Za-z]+$/],
+      errorMessage: "Last name can only contain alphabetic characters",
+    },
+  },
   username: {
     notEmpty: {
       errorMessage: "Username cannot be empty",
@@ -9,7 +36,7 @@ export const userValidatorSchema ={
       errorMessage: "Username should be between 3-20 characters",
     },
     matches: {
-      // Regex: letters, numbers, underscore, dot — no leading/trailing/consecutive special chars
+
       options: [/^(?![_\.])(?!.*[_\.]{2})[a-zA-Z0-9._]+(?<![_\.])$/],
       errorMessage:
         "Username can only contain letters, numbers, underscores, and dots. No leading, trailing, or consecutive special characters.",
@@ -92,7 +119,7 @@ export const validateTask = {
   userId: {
     in: ['body'],
     optional: true,
-    isMongoId: { errorMessage: 'Invalid user ID' },
+    
   },
   status:{
     in: ['body'],
