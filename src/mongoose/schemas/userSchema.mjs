@@ -1,25 +1,43 @@
 import mongoose from "mongoose";
 const userSchema = new mongoose.Schema({
-    fname:{
-        type:String,
-        require:true,
-    },
-    lname:{
-        type:String,
-        require:true,
-    },
-    username:{
+    fname: {
         type: String,
-        require:true,
-        unique:true,
+        required: true,
     },
-    email:{
+    lname: {
         type: String,
-        require:true,
+
     },
-    password:{
+    email: {
         type: String,
-        require:true,
+        required: true,
+    },
+    username: {
+            type: String,
+            required:true,
+            unique: true,
+    },
+    auth: {
+        type: {
+            type: String,
+            required: true
+        },
+        password: {
+            type: String,
+
+        },
+        googleId: {
+            type: String,
+            
+        },
+        discordId: {
+            type: String,
+            
+        },
+        githubId: {
+            type: String,
+           
+        }
     },
 })
 export const userModel = mongoose.model("User", userSchema);
