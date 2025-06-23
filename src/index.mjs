@@ -32,9 +32,11 @@ import route from "./routes/index.mjs";
 
 const app = express();
 const PORT = process.env.SERVER_PORT;
+const MONGO_URI = process.env.MONGO_URI
+const CLIENT_URL = process.env.CLIENT_URL
 
 //connect to the database
-mongoose.connect("mongodb://127.0.0.1/Tasker", {autoIndex: true}).then(() => console.log("connected to the database"))
+mongoose.connect(`${MONGO_URI}Tasker`, {autoIndex: true}).then(() => console.log("connected to the database"))
 app.use(express.json())
 app.use(express.urlencoded({
     extended: true
@@ -55,11 +57,11 @@ app.use(session({
 app.use(passport.initialize())
 app.use(passport.session())
 app.use(cors({
-    origin: "http://localhost:8888",
+    origin: CLIENT_URL,
     credentials: true
 }))
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "http://localhost:8888");
+    res.header("Access-Control-Allow-Origin", CLIENT_URL);
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 })
@@ -94,7 +96,7 @@ app.get("/api/auth/google/redirect", (req, res, next) => {
         });
         req.logIn(user, (err) => {
             if (err) return res.status(500).send({ msg: "Login failed" });
-            res.redirect("http://localhost:8888/");
+            res.redirect(CLIENT_URL);
         });
     })(req, res, next);
 })
@@ -110,7 +112,7 @@ app.get("/api/auth/discord/redirect", (req, res, next) => {
         });
         req.logIn(user, (err) => {
             if (err) return res.status(500).send({ msg: "Login failed" });
-            res.redirect("http://localhost:8888/");
+            res.redirect(CLIENT_URL);
         });
     })(req, res, next);
 })
@@ -128,7 +130,7 @@ app.get("/api/auth/github/redirect", (req, res, next) => {
         req.logIn(user, (err) => {
             if(err) console.log(err)
             if (err) return res.status(500).send({ msg: "Login failed" });
-            res.redirect("http://localhost:8888/");
+            res.redirect(CLIENT_URL);
         });
     })(req, res, next);
 })

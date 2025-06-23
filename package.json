@@ -4,7 +4,8 @@
   "main": "./src/index.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "nodemon --env-file .env ./src/index.mjs"
+    "start:dev": "nodemon --env-file .env ./src/index.mjs",
+    "start": "node --env-file .env ./src/index.mjs"
   },
   "keywords": [],
   "author": "",
