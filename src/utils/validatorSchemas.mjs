@@ -74,59 +74,125 @@ lname: {
 export const validateTask = {
   title: {
     in: ['body'],
-    exists: { errorMessage: 'Title is required' },
-    isString: { errorMessage: 'Title must be a string' },
-    trim: true,
+    exists: {
+      errorMessage: 'Title is required',
+    },
+    isString: {
+      errorMessage: 'Title must be a string',
+    },
+    notEmpty: {
+      errorMessage: 'Title cannot be empty',
+    },
   },
+
   description: {
     in: ['body'],
     optional: true,
-    isString: { errorMessage: 'Description must be a string' },
-    trim: true,
+    isString: {
+      errorMessage: 'Description must be a string',
+    },
   },
+
+  tags: {
+    in: ['body'],
+    optional: true,
+    isArray: {
+      errorMessage: 'Tags must be an array',
+    },
+  },
+
   'tags.*.tagname': {
     in: ['body'],
-    exists: { errorMessage: 'Tag name is required' },
-    isString: { errorMessage: 'Tag name must be a string' },
+    optional: true,
+    isString: {
+      errorMessage: 'Tagname must be a string',
+    },
   },
+
   'tags.*.color': {
     in: ['body'],
-    exists: { errorMessage: 'Tag color is required' },
-    isString: { errorMessage: 'Color must be a string' },
+    optional: true,
+    isString: {
+      errorMessage: 'Color must be a string',
+    },
   },
+
   'tags.*.textColor': {
     in: ['body'],
-    exists: { errorMessage: 'Tag text color is required' },
-    isString: { errorMessage: 'Text color must be a string' },
+    optional: true,
+    isString: {
+      errorMessage: 'TextColor must be a string',
+    },
   },
+
   dueDate: {
-    in: ['body'],
-    exists: { errorMessage: 'Due date is required' },
-    isISO8601: { errorMessage: 'Due date must be a valid date' },
-    toDate: true,
+  
+    optional: { options: { nullable: true } },
+    isISO8601: {
+      errorMessage: 'Due date must be a valid ISO 8601 date',
+    },
   },
+
+  completedDate: {
+   
+    optional: { options: { nullable: true } },
+    isISO8601: {
+      errorMessage: 'Completed date must be a valid ISO 8601 date',
+    },
+  },
+
   priorityChoice: {
     in: ['body'],
     optional: true,
-    isString: { errorMessage: 'Priority choice must be a string' },
+    isString: {
+      errorMessage: 'Priority choice must be a string',
+    },
   },
+
   createdDate: {
     in: ['body'],
-    exists: { errorMessage: 'Created date is required' },
-    isISO8601: { errorMessage: 'Created date must be a valid date' },
-    toDate: true,
+    exists: {
+      errorMessage: 'Created date is required',
+    },
+    isISO8601: {
+      errorMessage: 'Created date must be a valid ISO 8601 date',
+    },
   },
+
   userId: {
+
+    optional: true,
+    isMongoId: {
+      errorMessage: 'User ID must be a valid Mongo ID',
+    },
+  },
+
+  boardId: {
+    optional: true,
+    isMongoId: {
+      errorMessage: 'Board ID must be a valid Mongo ID',
+    },
+  },
+
+  status: {
     in: ['body'],
     optional: true,
-    
+    isString: {
+      errorMessage: 'Status must be a string',
+    },
   },
-  status:{
+
+  boardName: {
     in: ['body'],
-    exists: { errorMessage: 'Status cannot be empty' },
+    optional: true,
+    isString: {
+      errorMessage: 'Board name must be a string',
+    },
   },
   idx:{
     optional:true
   }
-};
+}
+  
+
 

@@ -2,7 +2,6 @@ import DiscordStrategy from "passport-discord"
 import passport from "passport"
 import { userModel } from "../mongoose/schemas/userSchema.mjs";
 import { usernameGen } from "../helper/usernameGenerator.mjs";
-
 export default passport.use(new DiscordStrategy({
     clientID:process.env.DISCORD_ID,
     clientSecret:process.env.DISCORD_SECRET,

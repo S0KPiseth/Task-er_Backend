@@ -1,5 +1,6 @@
 import express from "express"
 import mongoose from "mongoose";
+import "dotenv"
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import MongoStore from "connect-mongo";
@@ -27,11 +28,13 @@ import passport from "passport";
 import cors from "cors"
 import route from "./routes/index.mjs";
 
+
+
 const app = express();
 const PORT = process.env.SERVER_PORT;
 
 //connect to the database
-mongoose.connect("mongodb://127.0.0.1/Tasker").then(() => console.log("connected to the database"))
+mongoose.connect("mongodb://127.0.0.1/Tasker", {autoIndex: true}).then(() => console.log("connected to the database"))
 app.use(express.json())
 app.use(express.urlencoded({
     extended: true
@@ -68,7 +71,8 @@ app.get("/", (request, response) => {
 })
 app.post("/api/auth", (req, res, next) => {
     passport.authenticate("local", (err, user, info) => {
-        if (err) return res.status(400).send({ msg: err });
+       
+        if (err) return res.status(400).send({ msg: err.message });
         if (!user) return res.status(401).send({ msg: "Authentication failed" });
 
         req.logIn(user, (err) => {

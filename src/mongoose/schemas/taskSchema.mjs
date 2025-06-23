@@ -17,7 +17,9 @@ const taskSchema = new mongoose.Schema({
   ],
   dueDate: {
     type: Date,
-    required: true,
+  },
+  completedDate: {
+    type: Date,
   },
   priorityChoice: {
     type: String,
@@ -30,9 +32,17 @@ const taskSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
+  boardId:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'board'
+    
+  },
   status:{
     type:String,
-    required:true,
+  },
+  boardName:{
+    type:String,
+    default:"To Do"
   }
 });
 
